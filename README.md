@@ -20,7 +20,7 @@ Foi densevolvido com intuito para aprendizagem da linguagem C# e obetação de n
 1. Clone este repositório em sua máquina local:
 
    ```bash
-   git clone https://github.com/seu-usuario/controle-estoque-console.git
+   git clone https://github.com/npbandeira/ControleEstoqueCsharp.git
    ```
 
 2. Navegue até a pasta do projeto:
