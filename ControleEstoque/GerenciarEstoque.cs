@@ -36,8 +36,9 @@ namespace ControleEstoque
                 var item = new ItemEstoque(nome, preco, tipo, descricao, fabricante);
 
                 _itens.Add(item); // adiciona item na lista 
-
+                Console.Clear();
                 Console.WriteLine("Item adicionado com sucesso.");
+                Console.ReadKey();
             }
             catch (Exception ex)
             {
@@ -49,16 +50,17 @@ namespace ControleEstoque
         public void ListarItens()
         {
             Console.Clear();
+            Console.WriteLine("LISTA DE ITEMS NO ESTOQUE: \n");
             if (_itens.Count == 0)
             {
-                Console.WriteLine("Nenhum item no estoque.");
+                Console.WriteLine("\nNenhum item no estoque.");
                 Console.ReadKey();
                 return;
             }
 
             for (int i = 0; i < _itens.Count; i++)
             {
-                Console.WriteLine($"{i + 1}. {_itens[i]}");
+                Console.WriteLine($"{i} . {_itens[i]}");
             }
             Console.ReadKey();
         }
@@ -66,7 +68,7 @@ namespace ControleEstoque
         public ItemEstoque? BuscarItem(int index)
         {
             // Verifica se o índice é válido (dentro do range da lista)
-            if (index >= 0 && index < _itens.Count)
+            if (index >= 0 && (index) < _itens.Count)
             {
                 return _itens[index];  // Retorna o item no índice especificado
             }
@@ -78,10 +80,15 @@ namespace ControleEstoque
 
         public void RemoverItem()
         {
-            Console.Clear();
-            Console.WriteLine("Informe a posição do item para remover do estoque: ");
+            ListarItens();
+
+            if (_itens.Count == 0)
+            {
+                return;
+            }
             try
             {
+                Console.Write("Informe a posição do item para remover do estoque: ");
                 if (!int.TryParse(Console.ReadLine(), out int posicao))
                 {
                     throw new Exception("Posição inválida.");
@@ -90,6 +97,7 @@ namespace ControleEstoque
                 var item = BuscarItem(posicao);
                 if (item != null)
                 {
+                    Console.Clear();
                     Console.WriteLine(item.ToString());
                     Console.WriteLine("Deseja remover este item? (S/N)");
                     string? resposta = Console.ReadLine() ?? "N";
@@ -118,11 +126,14 @@ namespace ControleEstoque
 
         public void EntradaEstoque()
         {
-            Console.Clear();
-
+            ListarItens();
+            if (_itens.Count == 0)
+            {
+                return;
+            }
             try
             {
-                Console.WriteLine("Informe o nome do item para entrada de estoque:");
+                Console.Write("Informe a posicao do item para entrada de estoque: ");
                 if (!int.TryParse(Console.ReadLine(), out int posicao))
                 {
                     throw new Exception("Posição inválida.");
@@ -130,8 +141,9 @@ namespace ControleEstoque
                 var item = BuscarItem(posicao);
                 if (item != null)
                 {
+                    Console.Clear();
                     Console.WriteLine(item.ToString());
-                    Console.WriteLine("Informe a quantidade de entrada:");
+                    Console.Write("Informe a quantidade de entrada:");
                     int quantidade = int.Parse(Console.ReadLine() ?? "0");
                     item.Quantidade = quantidade;
                     Console.WriteLine($"Entrada de {quantidade} unidades do item [{item.Nome}] efetuada com sucesso!");
@@ -151,11 +163,14 @@ namespace ControleEstoque
 
         public void SaidaEstoque()
         {
-            Console.Clear();
-
+            ListarItens();
+            if (_itens.Count == 0)
+            {
+                return;
+            }
             try
             {
-                Console.WriteLine("Informe o nome do item para saída de estoque:");
+                Console.Write("Informe a posição do item para saída de estoque: ");
                 if (!int.TryParse(Console.ReadLine(), out int posicao))
                 {
                     throw new Exception("Posição inválida.");
@@ -163,6 +178,7 @@ namespace ControleEstoque
                 var item = BuscarItem(posicao);
                 if (item != null)
                 {
+                    Console.Clear();
                     Console.WriteLine(item.ToString());
                     Console.WriteLine("Informe a quantidade de saída:");
                     int quantidade = int.Parse(Console.ReadLine() ?? "0");
